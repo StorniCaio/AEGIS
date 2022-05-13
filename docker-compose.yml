@@ -1,0 +1,10 @@
+version: '3'
+
+networks:
+  aegis_network:
+    driver: bridge
+
+volumes:
+  aegis_volume:
+    external: true
+
