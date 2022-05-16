@@ -1,0 +1,410 @@
+[
+    {
+        "id": "b72194e564a343a3",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c1a252f.b8d50b",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "34900edb5b025056",
+        "type": "postgreSQLConfig",
+        "name": "",
+        "host": "127.0.0.1",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "AEGIS",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "max": "10",
+        "maxFieldType": "num",
+        "min": "1",
+        "minFieldType": "num",
+        "idle": "1000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "storni",
+        "userFieldType": "str",
+        "password": "jcs481200",
+        "passwordFieldType": "str"
+    },
+    {
+        "id": "4134c4f697c88428",
+        "type": "mqtt in",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "topic": "AEGIS/data",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "c1a252f.b8d50b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 440,
+        "wires": [
+            [
+                "4c762ee992fd173f",
+                "96eadf2e3b1e71f5",
+                "48d1f0ad38c3309e"
+            ]
+        ]
+    },
+    {
+        "id": "dd475dd17dd30c7c",
+        "type": "mqtt in",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "topic": "sync/request",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "c1a252f.b8d50b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "7726cff08304d053",
+                "2ac3ef285dfed9da"
+            ]
+        ]
+    },
+    {
+        "id": "7726cff08304d053",
+        "type": "function",
+        "z": "b72194e564a343a3",
+        "name": "Send Local TimeStamp",
+        "func": "time = Date.now()/1000 - 3*3600;\nreturn [{payload: time},\n        {payload: new Date(time*1000).toISOString()}];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 160,
+        "wires": [
+            [
+                "193cfbf85818e3af"
+            ]
+        ]
+    },
+    {
+        "id": "193cfbf85818e3af",
+        "type": "mqtt out",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "topic": "sync/answer",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c1a252f.b8d50b",
+        "x": 550,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f2e0f84b16d0e40c",
+        "type": "mqtt out",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "topic": "resync",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c1a252f.b8d50b",
+        "x": 810,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "a60d5ee158590688",
+        "type": "inject",
+        "z": "b72194e564a343a3",
+        "name": "trigger",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3600",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 620,
+        "y": 80,
+        "wires": [
+            [
+                "f2e0f84b16d0e40c"
+            ]
+        ]
+    },
+    {
+        "id": "1f11f5d2fc269d6f",
+        "type": "debug",
+        "z": "b72194e564a343a3",
+        "name": "debug",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "e3c415f4409c3bb5",
+        "type": "function",
+        "z": "b72194e564a343a3",
+        "name": "TimeRX append",
+        "func": "msg.payload.timeTX = parseFloat(msg.payload.timeTX);\nmsg.payload.timeRX = Date.now()/1000;\nmsg.payload.data_e_hora = new Date(msg.payload.timeTX*1000);\nmsg.reset = true;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 440,
+        "wires": [
+            [
+                "48213b806a38c301"
+            ]
+        ]
+    },
+    {
+        "id": "4c762ee992fd173f",
+        "type": "delay",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "outputs": 1,
+        "x": 270,
+        "y": 480,
+        "wires": [
+            [
+                "e3c415f4409c3bb5"
+            ]
+        ]
+    },
+    {
+        "id": "48213b806a38c301",
+        "type": "switch",
+        "z": "b72194e564a343a3",
+        "name": "If is not Null",
+        "property": "payload.temperature",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 630,
+        "y": 540,
+        "wires": [
+            [
+                "38c01ff3c9b97455"
+            ]
+        ]
+    },
+    {
+        "id": "96eadf2e3b1e71f5",
+        "type": "switch",
+        "z": "b72194e564a343a3",
+        "name": "If Pluviometric > 0",
+        "property": "payload.pluviometric",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 270,
+        "y": 400,
+        "wires": [
+            [
+                "e3c415f4409c3bb5"
+            ]
+        ]
+    },
+    {
+        "id": "48d1f0ad38c3309e",
+        "type": "debug",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 190,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "2ac3ef285dfed9da",
+        "type": "debug",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "38c01ff3c9b97455",
+        "type": "function",
+        "z": "b72194e564a343a3",
+        "name": "TimeStamp to PostGree",
+        "func": "msg.payload.data_e_hora = msg.payload.data_e_hora.toUTCString();\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 620,
+        "wires": [
+            [
+                "057195f85bd3d2bc"
+            ]
+        ]
+    },
+    {
+        "id": "d7c3d42012eae646",
+        "type": "debug",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "a85caed63251a0c7",
+        "type": "aedes broker",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "mqtt_port": 1883,
+        "mqtt_ws_bind": "port",
+        "mqtt_ws_port": "",
+        "mqtt_ws_path": "",
+        "cert": "",
+        "key": "",
+        "certname": "",
+        "keyname": "",
+        "dburl": "",
+        "usetls": false,
+        "x": 110,
+        "y": 40,
+        "wires": [
+            [
+                "1f11f5d2fc269d6f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "057195f85bd3d2bc",
+        "type": "postgresql",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "query": "\nINSERT INTO Sensor_Externo(date_time, timetx, timerx, temperature, humidity, pressure, pluviometric, temperature_2)\nVALUES(\n    TIMESTAMP '{{{msg.payload.data_e_hora}}}',\n    {{{msg.payload.timeTX}}},\n    {{{msg.payload.timeRX}}},\n    {{{msg.payload.temperature}}},\n    {{{msg.payload.humidity}}},\n    {{{msg.payload.pressure}}},\n\t{{{msg.payload.pluviometric}}},\n\t{{{msg.payload.temperature_2}}}\n);\n",
+        "postgreSQLConfig": "34900edb5b025056",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 870,
+        "y": 740,
+        "wires": [
+            [
+                "d7c3d42012eae646"
+            ]
+        ]
+    }
+]

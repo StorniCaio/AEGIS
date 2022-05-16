@@ -1,10 +1,28 @@
 version: '3'
 
+services:
+  node-red:
+            build:
+                dockerfile: Dockerfile
+                context: ./serve/src/node-red/
+            image: aegis/node-red
+            ports: 
+              - "8880:1880"
+              - "8883:1883"
+            networks: 
+              - aegis
+            volumes: 
+              - nodered:/data
+            container_name: aegis_nodered
+            environment:
+              - NODE_RED_CREDENTIAL_SECRET=my_credential_password
+  
 networks:
-  aegis_network:
+  aegis:
     driver: bridge
-
 volumes:
-  aegis_volume:
-    external: true
+  nodered:
+    driver: local
+    external: false
+
 

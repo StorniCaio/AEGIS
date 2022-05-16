@@ -1,0 +1,27 @@
+{
+    "name": "node-red-aegis",
+    "version": "2.2.2",
+    "description": "Está aplicação integra o projeto de iniciação científica AEGIA para o monitoramento de chuva",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/StorniCaio/AEGIS.git"
+    },
+    "private": true,
+    "scripts": {
+        "start": "node $NODE_OPTIONS node_modules/node-red/red.js $FLOWS"
+    },
+    "contributors": [
+        {
+            "name": "Caio Storni"
+        }
+    ],
+    "dependencies": {
+        "node-red":"2.2.2",
+        "node-red-contrib-aedes": "~0.7.0",
+        "node-red-contrib-postgresql": "~0.9.0",
+        "postgrestor": "0.0.2"
+    },
+    "engines": {
+        "node": ">=12"
+    }
+}
