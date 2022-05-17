@@ -53,9 +53,9 @@
         "idleFieldType": "num",
         "connectionTimeout": "10000",
         "connectionTimeoutFieldType": "num",
-        "user": "storni",
+        "user": "noderedUser",
         "userFieldType": "str",
-        "password": "jcs481200",
+        "password": "noderedUser",
         "passwordFieldType": "str"
     },
     {
