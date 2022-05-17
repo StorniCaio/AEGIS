@@ -37,11 +37,11 @@
         "id": "34900edb5b025056",
         "type": "postgreSQLConfig",
         "name": "",
-        "host": "127.0.0.1",
+        "host": "db",
         "hostFieldType": "str",
         "port": "5432",
         "portFieldType": "num",
-        "database": "AEGIS",
+        "database": "aegis",
         "databaseFieldType": "str",
         "ssl": "false",
         "sslFieldType": "bool",
@@ -53,7 +53,7 @@
         "idleFieldType": "num",
         "connectionTimeout": "10000",
         "connectionTimeoutFieldType": "num",
-        "user": "noderedUser",
+        "user": "nodered",
         "userFieldType": "str",
         "password": "noderedUser",
         "passwordFieldType": "str"
@@ -296,23 +296,6 @@
         ]
     },
     {
-        "id": "48d1f0ad38c3309e",
-        "type": "debug",
-        "z": "b72194e564a343a3",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 190,
-        "y": 600,
-        "wires": []
-    },
-    {
         "id": "2ac3ef285dfed9da",
         "type": "debug",
         "z": "b72194e564a343a3",
@@ -344,7 +327,8 @@
         "y": 620,
         "wires": [
             [
-                "057195f85bd3d2bc"
+                "057195f85bd3d2bc",
+                "70155846b9d335e9"
             ]
         ]
     },
@@ -394,7 +378,7 @@
         "type": "postgresql",
         "z": "b72194e564a343a3",
         "name": "",
-        "query": "\nINSERT INTO Sensor_Externo(date_time, timetx, timerx, temperature, humidity, pressure, pluviometric, temperature_2)\nVALUES(\n    TIMESTAMP '{{{msg.payload.data_e_hora}}}',\n    {{{msg.payload.timeTX}}},\n    {{{msg.payload.timeRX}}},\n    {{{msg.payload.temperature}}},\n    {{{msg.payload.humidity}}},\n    {{{msg.payload.pressure}}},\n\t{{{msg.payload.pluviometric}}},\n\t{{{msg.payload.temperature_2}}}\n);\n",
+        "query": "\nINSERT INTO dados_sensores(data_e_hora, nome, timetx, timerx, temperature, humidity, pressure, pluviometric)\nVALUES(\n    TIMESTAMP '{{{msg.payload.data_e_hora}}}',\n    {{{msg.payload.sensor}}},\n    {{{msg.payload.timeTX}}},\n    {{{msg.payload.timeRX}}},\n    {{{msg.payload.temperature}}},\n    {{{msg.payload.humidity}}},\n    {{{msg.payload.pressure}}},\n\t{{{msg.payload.pluviometric}}}\n);\n",
         "postgreSQLConfig": "34900edb5b025056",
         "split": false,
         "rowsPerMsg": 1,
@@ -406,5 +390,70 @@
                 "d7c3d42012eae646"
             ]
         ]
+    },
+    {
+        "id": "70155846b9d335e9",
+        "type": "debug",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "48d1f0ad38c3309e",
+        "type": "debug",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 190,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "7292a16a3d7a3f66",
+        "type": "catch",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 440,
+        "y": 320,
+        "wires": [
+            [
+                "ae60ec6d80505817"
+            ]
+        ]
+    },
+    {
+        "id": "ae60ec6d80505817",
+        "type": "debug",
+        "z": "b72194e564a343a3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 320,
+        "wires": []
     }
 ]
