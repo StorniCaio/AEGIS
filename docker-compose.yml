@@ -19,7 +19,7 @@ networks:
   aegis:
     driver: bridge
 volumes:
-  grafana_volume:
+  grafana:
     driver: local
     external: false
 
