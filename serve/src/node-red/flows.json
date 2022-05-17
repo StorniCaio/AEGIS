@@ -378,7 +378,7 @@
         "type": "postgresql",
         "z": "b72194e564a343a3",
         "name": "",
-        "query": "\nINSERT INTO dados_sensores(data_e_hora, nome, timetx, timerx, temperature, humidity, pressure, pluviometric)\nVALUES(\n    TIMESTAMP '{{{msg.payload.data_e_hora}}}',\n    {{{msg.payload.sensor}}},\n    {{{msg.payload.timeTX}}},\n    {{{msg.payload.timeRX}}},\n    {{{msg.payload.temperature}}},\n    {{{msg.payload.humidity}}},\n    {{{msg.payload.pressure}}},\n\t{{{msg.payload.pluviometric}}}\n);\n",
+        "query": "\nINSERT INTO dados_sensores(data_e_hora, nome, timetx, timerx, temperature, humidity, pressure, pluviometric)\nVALUES(\n    TIMESTAMP '{{{msg.payload.data_e_hora}}}',\n    '{{{msg.payload.sensor}}}',\n    {{{msg.payload.timeTX}}},\n    {{{msg.payload.timeRX}}},\n    {{{msg.payload.temperature}}},\n    {{{msg.payload.humidity}}},\n    {{{msg.payload.pressure}}},\n\t{{{msg.payload.pluviometric}}}\n);\n",
         "postgreSQLConfig": "34900edb5b025056",
         "split": false,
         "rowsPerMsg": 1,
@@ -453,7 +453,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 650,
-        "y": 320,
+        "y": 340,
         "wires": []
     }
 ]
