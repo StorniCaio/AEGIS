@@ -16,6 +16,8 @@ services:
             container_name: aegis_nodered
             environment:
               - NODE_RED_CREDENTIAL_SECRET=my_credential_password
+            depends_on:
+              - db
   db:
             build:
                 dockerfile: Dockerfile
@@ -55,6 +57,8 @@ services:
             container_name: aegis_grafana
             ports:
               - "3030:3000"
+            depends_on:
+              - db
 
   
 networks:
@@ -74,7 +78,7 @@ volumes:
     driver: local
     external: false
 
-  grafana_volume:
+  grafana:
     driver: local
     external: false
 
