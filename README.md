@@ -29,3 +29,11 @@ Usuario e senha pgAdmin
 
 User: aegis@admin.com
 senha aegisAdmin
+Usuário e senha
+
+Grafana
+User: aegisAdmin
+senha: aegisAdmin
+
+User: aegisViewer
+senha: aegis Viewer

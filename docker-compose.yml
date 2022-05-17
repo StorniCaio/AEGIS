@@ -43,21 +43,39 @@ services:
               - db
             ports:
               - "80:80"
+  grafana:
+            build:
+                dockerfile: Dockerfile
+                context: ./serve/src/grafana/
+            image: aegis/grafana
+            networks: 
+              - aegis
+            volumes: 
+              - grafana:/var/lib/grafana
+            container_name: aegis_grafana
+            ports:
+              - "3030:3000"
 
   
 networks:
   aegis:
     driver: bridge
+    
 volumes:
   nodered:
     driver: local
     external: false
+
   db:
     driver: local
     external: false
+
   pgAdmin:
     driver: local
     external: false
 
+  grafana_volume:
+    driver: local
+    external: false
 
 
