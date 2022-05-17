@@ -16,6 +16,34 @@ services:
             container_name: aegis_nodered
             environment:
               - NODE_RED_CREDENTIAL_SECRET=my_credential_password
+  db:
+            build:
+                dockerfile: Dockerfile
+                context: ./serve/src/db/
+            image: aegis/db
+            networks: 
+              - aegis
+            volumes: 
+              - db:/var/lib/postgresql/data
+            container_name: aegis_db
+            environment:
+              - POSTGRES_PASSWORD=P0stgr&s
+  pgAdmin:
+            image: dpage/pgadmin4:6.9
+            container_name: aegis_pgAdmin
+            environment:
+              - PGADMIN_DEFAULT_USER=aegisAdmin
+              - PGADMIN_DEFAULT_EMAIL=aegis@admin.com
+              - PGADMIN_DEFAULT_PASSWORD=aegisAdmin
+            networks:
+              - aegis
+            volumes:
+              - pgAdmin:/var/lib/pgadmin
+            depends_on:
+              - db
+            ports:
+              - "80:80"
+
   
 networks:
   aegis:
@@ -24,5 +52,12 @@ volumes:
   nodered:
     driver: local
     external: false
+  db:
+    driver: local
+    external: false
+  pgAdmin:
+    driver: local
+    external: false
+
 
 
