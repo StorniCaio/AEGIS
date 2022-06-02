@@ -38,8 +38,9 @@ INSERT INTO sensores(nome, endereco, cidade, bairro)
 VALUES ('AEGIS' ,'não especificado','não especificado','não especificado');
 
 
-GRANT ALL PRIVILEGES ON DATABASE AEGIS TO aegisAdmin;
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO aegisAdmin;
+GRANT ALL PRIVILEGES ON DATABASE AEGIS TO aegisadmin;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO aegisadmin;
+GRANT INSERT, UPDATE, DELETE ON  sensores to aegisadmin;
 
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO grafana;
 GRANT SELECT, INSERT, UPDATE  ON ALL TABLES IN SCHEMA public TO nodered;
