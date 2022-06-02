@@ -108,7 +108,7 @@
         "type": "function",
         "z": "b72194e564a343a3",
         "name": "Send Local TimeStamp",
-        "func": "time = Date.now()/1000 - 3*3600;\nreturn [{payload: time},\n        {payload: new Date(time*1000).toISOString()}];",
+        "func": "time = Date.now()/1000;\nreturn [{payload: time},\n        {payload: new Date(time*1000).toISOString()}];",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
