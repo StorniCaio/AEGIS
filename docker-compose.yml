@@ -19,6 +19,7 @@ services:
               - TZ=America/Sao_Paulo
             depends_on:
               - db
+            restart: always
   db:
             build:
                 dockerfile: Dockerfile
@@ -31,6 +32,7 @@ services:
             container_name: aegis_db
             environment:
               - POSTGRES_PASSWORD=P0stgr&s
+            restart: always
   pgAdmin:
             image: dpage/pgadmin4:6.9
             container_name: aegis_pgAdmin
@@ -46,6 +48,7 @@ services:
               - db
             ports:
               - "80:80"
+            restart: always
   grafana:
             build:
                 dockerfile: Dockerfile
@@ -60,6 +63,7 @@ services:
               - "3030:3000"
             depends_on:
               - db
+            restart: always
 
   
 networks:
